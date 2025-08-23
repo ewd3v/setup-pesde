@@ -1,13 +1,13 @@
-name: setup-aftman
-description: GitHub action to install and run aftman; a toolchain manager.
-author: ok-nick
+name: setup-pesde
+description: GitHub action to install and run pesde; a Luau package manager.
+author: ewd3v
 
 inputs:
   version:
-    description: "`aftman` git tag (usually in the form vx.x.x)"
+    description: "`pesde` git tag (usually in the form vx.x.x)"
     required: false
   path:
-    description: "Path to the `aftman.toml` directory"
+    description: "Path to the `pesde.toml` directory"
     default: "."
     required: false
   cache:
@@ -22,7 +22,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Download aftman
+    - name: Download pesde
       run: |
         case ${{ runner.arch }} in
           "X86" | "X64") fileArch="x86_64" ;;
@@ -35,42 +35,39 @@ runs:
           Windows) pattern="*windows-$fileArch.zip" ;;
         esac
 
-        gh release download ${{ inputs.version }} --repo LPGhatguy/aftman --pattern $pattern
+        gh release download ${{ inputs.version }} --repo pesde-pkg/pesde --pattern $pattern
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
       shell: bash
 
-    - name: Install aftman
+    - name: Install pesde
       run: |
-        unzip aftman*.zip
-        ./aftman self-install
+        unzip pesde*.zip
+        ./pesde self-install
       shell: bash
 
     - name: Delete artifacts
       run: |
-        rm aftman*.zip
+        rm pesde*.zip
         if ${{ runner.os == 'Windows' }}; then
-          rm aftman.exe
+          rm pesde.exe
         else
-          rm aftman
+          rm pesde
         fi
       shell: bash
 
     - name: Set environment variable
       if: runner.os == 'Windows'
-      run: echo "$HOME/.aftman/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      run: echo "$HOME/.pesde/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       shell: powershell
 
     - name: Set environment variable
       if: runner.os != 'Windows'
-      run: echo "$HOME/.aftman/bin" >> $GITHUB_PATH
+      run: echo "$HOME/.pesde/bin" >> $GITHUB_PATH
       shell: bash
 
-    - name: Create auth file
-      run: |
-        cat > $HOME/.aftman/auth.toml << EOF
-        github = "${{ inputs.token }}"
-        EOF
+    - name: Authenticate
+      run: pesde auth --token ${{ inputs.token }}
       shell: bash
 
     - name: Cache binaries
@@ -78,16 +75,15 @@ runs:
       uses: actions/cache@v4
       with:
         path: |
-          ~/.aftman/bin
-          ~/.aftman/tool-storage
-        key: ${{ runner.os }}-aftman-${{hashFiles(format('{0}/{1}', inputs.path, 'aftman.toml'))}}
+          ~/.pesde
+        key: ${{ runner.os }}-pesde-${{hashFiles(format('{0}/{1}', inputs.path, 'pesde.lock'))}}
 
-    - name: Install tools
+    - name: Install dependencies
       run: |
         cd ${{ inputs.path }}
-        aftman install --no-trust-check
+        pesde install
       shell: bash
 
 branding:
-  icon: link-2
-  color: blue
+  icon: package
+  color: yellow
