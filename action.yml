@@ -67,7 +67,7 @@ runs:
       shell: bash
 
     - name: Authenticate
-      run: pesde auth --token ${{ inputs.token }}
+      run: pesde auth login --token ${{ inputs.token }}
       shell: bash
 
     - name: Cache binaries
