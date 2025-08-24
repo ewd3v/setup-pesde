@@ -76,7 +76,8 @@ runs:
       with:
         path: |
           ~/.pesde
-        key: ${{ runner.os }}-pesde-${{hashFiles(format('{0}/{1}', inputs.path, 'pesde.lock'))}}
+        key: ${{ runner.os }}-pesde-${{ hashFiles(format('{0}/{1}', inputs.path, 'pesde.lock')) }}
+        restore-keys: ${{ runner.os }}-pesde-
 
     - name: Install dependencies
       run: |
