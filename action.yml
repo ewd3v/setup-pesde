@@ -35,20 +35,20 @@ runs:
           Windows) pattern="*windows-$fileArch.zip" ;;
         esac
 
-        gh release download ${{ inputs.version }} --repo pesde-pkg/pesde --pattern $pattern
+        gh release download ${{ inputs.version }} --repo pesde-pkg/pesde --pattern $pattern --output pesde.zip
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
       shell: bash
 
     - name: Install pesde
       run: |
-        unzip pesde*.zip
+        unzip pesde.zip
         ./pesde self-install
       shell: bash
 
     - name: Delete artifacts
       run: |
-        rm pesde*.zip
+        rm pesde.zip
         if ${{ runner.os == 'Windows' }}; then
           rm pesde.exe
         else
