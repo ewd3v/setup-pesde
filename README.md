@@ -1,7 +1,7 @@
 <div align="center">
   <h1><code>setup-pesde</code></h1>
   <p>
-    <a href="https://github.com/ewd3v/setup-pesde/actions?query=workflow%3ACI"><img src="https://github.com/ewd3v/setup-pesde/workflows/CI/badge.svg" alt="CI" /></a>
+    <a href="https://github.com/ewd3v/setup-pesde/actions?query=workflow%3Atest"><img src="https://github.com/ewd3v/setup-pesde/workflows/test/badge.svg" alt="test" /></a>
   </p>
 </div>
 
