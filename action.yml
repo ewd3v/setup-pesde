@@ -1,4 +1,4 @@
-name: setup-pesde
+name: Setup pesde
 description: GitHub action to install and run pesde; a Luau package manager.
 author: ewd3v
 
