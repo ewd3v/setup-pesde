@@ -18,6 +18,10 @@ inputs:
     description: "GitHub token via `github.token`"
     default: "${{ github.token }}"
     required: false
+  pesde_token:
+    description: "pesde token"
+    default: "${{ github.token }}"
+    required: false
 
 runs:
   using: "composite"
@@ -67,7 +71,7 @@ runs:
       shell: bash
 
     - name: Authenticate
-      run: pesde auth login --token ${{ inputs.token }}
+      run: pesde auth login --token ${{ inputs.pesde_token }}
       shell: bash
 
     - name: Cache binaries
