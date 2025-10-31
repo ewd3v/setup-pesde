@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2025-11-01
+
+### Fixed
+
 -   Separated GitHub and pesde tokens
 
 ## [0.1.0] - 2025-08-24
@@ -16,5 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Workflow to setup and install pesde
 -   CI Tests
 
-[Unreleased]: https://github.com/ewd3v/setup-pesde/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/ewd3v/setup-pesde/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/ewd3v/setup-pesde/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/ewd3v/setup-pesde/releases/tag/v0.1.0
